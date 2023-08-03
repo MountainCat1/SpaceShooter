@@ -1,14 +1,10 @@
+using System;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public delegate void PlayerMoved(Vector2 direction);
-    public event PlayerMoved PlayerMovedEvent;
+    public event Action<Vector2> PlayerMovedEvent;
     
-    public delegate void PlayerPressedE();
-    public event PlayerPressedE PlayerPressedEEvent;
-
-
     private void Update()
     {
         var direction = GetDirection();
@@ -16,11 +12,6 @@ public class InputManager : MonoBehaviour
         if (direction.magnitude > 0)
         {
             PlayerMovedEvent?.Invoke(direction);
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            PlayerPressedEEvent?.Invoke();
         }
     }
 
@@ -31,7 +22,7 @@ public class InputManager : MonoBehaviour
             y: Input.GetAxis("Vertical")
         );
 
-        return direction;
+        return direction.normalized;
     }
 }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerContoller : MonoBehaviour
 {
     [SerializeField] private InputManager inputManager;
-    [SerializeField] private float speed = 0.001f;
+    [SerializeField] private float speed = 5f;
 
     private Transform _transform;
 
@@ -16,20 +16,14 @@ public class PlayerContoller : MonoBehaviour
 
     private void Start()
     {
-        inputManager.PlayerMovedEvent += OnMovementEvent;
-        inputManager.PlayerPressedEEvent += InputManagerOnPlayerPressedEEvent;
+        inputManager.PlayerMovedEvent += OnPlayerMoved;
     }
 
-    private void InputManagerOnPlayerPressedEEvent()
-    {
-        Debug.Log("The grandmother has returned!");
-    }
-
-    private void OnMovementEvent(Vector2 direction)
+    private void OnPlayerMoved(Vector2 direction)
     {
         Move(direction);
     }
-    
+
     private void Move(Vector2 direction)
     {
         if (direction != direction.normalized)
